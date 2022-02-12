@@ -6,7 +6,7 @@ My dotfiles
 Clone the repo and its submodules, then install links. The install will not override any configs by default.
 
 ```
-git clone git@github.com:cw2095/.dotfiles.git && \
+git clone git@github.com:cw2095/dotfiles.git && \
 cd .dotfiles && \
 git submodule update --init --recursive && \
 ./install
