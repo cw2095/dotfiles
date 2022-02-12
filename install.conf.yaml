@@ -1,0 +1,32 @@
+- defaults:
+    link:
+      relink: true
+
+- create:
+    - ~/Data/Desktop
+    - ~/Data/Documents
+    - ~/Dta/Downloads
+    - ~/Data/Music
+    - ~/Data/Videos
+    - ~/Data/Pictures
+    - ~/Data/Public
+    - ~/Data/Templates
+
+- clean:
+    ~/:
+      force: true
+    ~/.config:
+      recursive: true
+
+- link:
+    ~/Desktop: ~/Data/Desktop/
+    ~/Documents: ~/Data/Documents/
+    ~/Downloads: ~/Data/Downloads/
+    ~/Music: ~/Data/Music/
+    ~/Videos: ~/Data/Videos/
+    ~/Pictures: ~/Data/Pictures/
+    ~/Public: ~/Data/Public/
+    ~/Templates: ~/Data/Templates/
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
