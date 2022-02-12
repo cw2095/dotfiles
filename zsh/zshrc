@@ -1,0 +1,233 @@
+# init script for interactive shells
+# vim: set ft=sh :
+
+# Zsh 配置文件加载顺序
+# zsh 启动过程中会依次读取以下文件：
+# 1. /etc/zshenv
+# 2. ZDOTDIR/.zshenv（ZDOTDIR 未设置时默认为 $HOME）
+# 3. 如果是 login shell，读取 /etc/zprofile, $ZDOTDIR/.zprofile
+# 4. 如果是 interactive shell，读取 /etc/zshrc, $ZDOTDIR/.zshrc
+# 5. 如果是 login shell，读取 /etc/zlogin, $ZDOTDIR/.zlogin
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |              |    login    |  non-login  |      login      |    non-login    |
+# |              | interactive | interactive | non-interactive | non-interactive |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |/etc/zshenv   |     A       |      A      |        A        |        A        |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |~/.zshenv     |     B       |      B      |        B        |        B        |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |/etc/zprofile |     C       |             |        C        |                 |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |~/.zprofile   |     D       |             |        D        |                 |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |/etc/zshrc    |     E       |      C      |                 |                 |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |~/.zshrc      |     F       |      D      |                 |                 |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |/etc/zlogin   |     G       |             |        E        |                 |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |~/.zlogin     |     H       |             |        F        |                 |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |              |             |             |                 |                 |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |              |             |             |                 |                 |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |~/.zlogout    |     I       |             |        G        |                 |
+# +--------------+-------------+-------------+-----------------+-----------------+
+# |/etc/zlogout  |     J       |             |        H        |                 |
+# +--------------+-------------+-------------+-----------------+-----------------+
+
+# $ZDOTDIR/.zshenv
+# $ZDOTDIR/.zprofile
+# $ZDOTDIR/.zshrc
+# $ZDOTDIR/.zlogin
+# $ZDOTDIR/.zlogout
+#
+# If ZDOTDIR is not set, then the value of HOME is used; this is the usual case.
+#
+# `.zshenv' is sourced on all invocations of the shell, unless the -f option is set. It should contain commands to set the command search path, plus other important environment variables. `.zshenv' should not contain commands that produce output or assume the shell is attached to a tty.
+#
+# `.zprofile' is similar to `.zlogin', except that it is sourced before `.zshrc'. `.zprofile' is meant as an alternative to `.zlogin' for ksh fans; the two are not intended to be used together, although this could certainly be done if desired.
+#
+# `.zshrc' is sourced in interactive shells. It should contain commands to set up aliases, functions, options, key bindings, etc.
+#
+# `.zlogin' is sourced in login shells. It should contain commands that should be executed only in login shells.
+# `.zlogin' is not the place for alias definitions, options, environment variable settings, etc.; as a general rule, it should not change the shell environment at all. Rather, it should be used to set the terminal type and run a series of external commands (fortune, msgs, etc).`
+#
+# `.zlogout' is sourced when login shells exit.
+
+# set in /etc/zshenv
+# if [[ -z "$ZDOTDIR" ]]; then
+#     export ZDOTDIR="$HOME/.local/zsh"
+# fi
+
+# prevent loading twice
+if [ -z "$_INIT_SH_LOADED" ]; then
+    _INIT_SH_LOADED=1
+else
+    return
+fi
+
+#----------------------------------------------------------------------
+# exit if not bash/zsh, or not in an interactive shell
+#----------------------------------------------------------------------
+[ -z "$BASH_VERSION" ] && [ -z "$ZSH_VERSION" ] && return
+[[ $- != *i* ]] && return
+
+# skip if in non-interactive mode
+# case "$-" in
+#     *i*) ;;
+#     *) return
+# esac
+
+
+# Start configuration added by Zim install {{{
+#
+# User configuration sourced by interactive shells
+#
+
+# -----------------
+# Zsh configuration
+# -----------------
+
+#
+# History
+#
+
+# Remove older command from the history if a duplicate is to be added.
+setopt HIST_IGNORE_ALL_DUPS
+
+#
+# Input/output
+#
+
+# Set editor default keymap to emacs (`-e`) or vi (`-v`)
+bindkey -e
+
+# Prompt for spelling correction of commands.
+#setopt CORRECT
+
+# Customize spelling correction prompt.
+#SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
+
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
+
+# -----------------
+# Zim configuration
+# -----------------
+
+# Use degit instead of git as the default tool to install and update modules.
+zstyle ':zim:zmodule' use 'degit'
+
+# --------------------
+# Module configuration
+# --------------------
+
+#
+# completion
+#
+
+# Set a custom path for the completion dump file.
+# If none is provided, the default ${ZDOTDIR:-${HOME}}/.zcompdump is used.
+#zstyle ':zim:completion' dumpfile "${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
+
+#
+# git
+#
+
+# Set a custom prefix for the generated aliases. The default prefix is 'G'.
+#zstyle ':zim:git' aliases-prefix 'g'
+
+#
+# input
+#
+
+# Append `../` to your input for each `.` you type after an initial `..`
+#zstyle ':zim:input' double-dot-expand yes
+
+#
+# termtitle
+#
+
+# Set a custom terminal title format using prompt expansion escape sequences.
+# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
+# If none is provided, the default '%n@%m: %~' is used.
+#zstyle ':zim:termtitle' format '%1~'
+
+#
+# zsh-autosuggestions
+#
+
+# Disable automatic widget re-binding on each precmd. This can be set when
+# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+# Customize the style that the suggestions are shown with.
+# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+
+#
+# zsh-syntax-highlighting
+#
+
+# Set what highlighters will be used.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+# Customize the main highlighter styles.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
+#typeset -A ZSH_HIGHLIGHT_STYLES
+#ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
+
+# Enabling Portage completions and Gentoo prompt for zsh
+autoload -U compinit promptinit
+compinit
+promptinit; prompt gentoo
+
+# Enabling cache for the completions for zsh
+zstyle ':completion::complete:*' use-cache 1
+
+# ------------------
+# Initialize modules
+# ------------------
+
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  # Download zimfw script if missing.
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+  # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+  source ${ZIM_HOME}/zimfw.zsh init -q
+fi
+source ${ZIM_HOME}/init.zsh
+
+# ------------------------------
+# Post-init module configuration
+# ------------------------------
+
+#
+# zsh-history-substring-search
+#
+
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Bind up and down keys
+zmodload -F zsh/terminfo +p:terminfo
+if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
+  bindkey ${terminfo[kcuu1]} history-substring-search-up
+  bindkey ${terminfo[kcud1]} history-substring-search-down
+fi
+
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+# }}} End configuration added by Zim install

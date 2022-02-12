@@ -5,7 +5,7 @@
 - create:
     - ~/Data/Desktop
     - ~/Data/Documents
-    - ~/Dta/Downloads
+    - ~/Data/Downloads
     - ~/Data/Music
     - ~/Data/Videos
     - ~/Data/Pictures
@@ -27,6 +27,11 @@
     ~/Pictures: ~/Data/Pictures/
     ~/Public: ~/Data/Public/
     ~/Templates: ~/Data/Templates/
+    ~/.local/zsh/.zshenv: zsh/zshenv
+    ~/.local/zsh/.zprofile: zsh/zprofile
+    ~/.local/zsh/.zshrc: zsh/zshrc
+    ~/.local/zsh/.zlogout: zsh/zlogout
+    ~/.local/zsh/.zimrc: zsh/zimrc
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
