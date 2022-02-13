@@ -15,6 +15,9 @@
     ff = false
 
 [alias]
+    clone = clone --depth=1
+    fetch = fetch --depth=1
+    # pull = pull --depth=1
     unstage = reset HEAD --
     c = commit
     co = checkout
