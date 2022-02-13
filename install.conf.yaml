@@ -32,6 +32,10 @@
     ~/.local/zsh/.zshrc: zsh/zshrc
     ~/.local/zsh/.zlogout: zsh/zlogout
     ~/.local/zsh/.zimrc: zsh/zimrc
+    ~/.Xresources: Xresources
+    ~/.xprofile: xprofile
+    ~/.xinitrc: xinitrc
+    ~/.config/alacritty/alacritty.yml: alacritty.yml
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
