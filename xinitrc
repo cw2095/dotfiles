@@ -1,6 +1,6 @@
-xrdb -merge ~/.Xresources
+# xrdb -merge ~/.Xresources
 
-eval "$(dbus-launch --sh-syntax --exit-with-session)"
+# eval "$(dbus-launch --sh-syntax --exit-with-session)"
 
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
@@ -17,6 +17,8 @@ if [ -x "/home/cw/bin/fastgithub" ]; then
     export http_proxy=$proxy
     export https_proxy=$proxy
 fi
+
+greenclip daemon &
 
 picom &
 
