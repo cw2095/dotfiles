@@ -36,6 +36,7 @@
     ~/.xprofile: xprofile
     ~/.xinitrc: xinitrc
     ~/.config/alacritty/alacritty.yml: alacritty.yml
+    ~/.config/picom/picom.conf: picom.conf
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
