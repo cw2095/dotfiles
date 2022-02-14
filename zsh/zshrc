@@ -231,6 +231,4 @@ bindkey '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-setxkbmap -option ctrl:nocaps
-xcape -e 'Control_L=Escape'
 # }}} End configuration added by Zim install
