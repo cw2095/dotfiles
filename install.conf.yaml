@@ -35,10 +35,13 @@
     ~/.Xresources: Xresources
     ~/.xprofile: xprofile
     ~/.xinitrc: xinitrc
+    ~/.jwmrc: jwmrc
     ~/.config/alacritty/alacritty.yml: alacritty.yml
     ~/.config/picom/picom.conf: picom.conf
     ~/.config/rofi/config.rasi: rofi_config.rasi
+    ~/.config/qalculate/qalc.cfg: qalc.cfg
     ~/.config/greenclip.toml: greenclip.toml
+    ~/GitHub/slstatus/config.h: slstatus-config.h
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
