@@ -41,7 +41,10 @@
     ~/.config/rofi/config.rasi: rofi_config.rasi
     ~/.config/qalculate/qalc.cfg: qalc.cfg
     ~/.config/greenclip.toml: greenclip.toml
+    ~/.config/bat/config: bat_config
     ~/GitHub/slstatus/config.h: slstatus-config.h
+    ~/.gitignore_global: gitignore_global
+    ~/.gitconfig: gitconfig
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
