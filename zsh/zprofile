@@ -1,6 +1,18 @@
-# if shopt -q login_shell; then
-     [[ -f ~/.zshrc ]] && source ~/.zshrc
-     [[ -t 0 && $(tty) == /dev/tty1 && ! $DISPLAY ]] && exec startx
-# else
-#    exit 1 # Somehow this is a non-bash or non-login shell.
+# set in /etc/zshenv
+# if [[ -z "$ZDOTDIR" ]]; then
+#     export ZDOTDIR="$HOME/.local/zsh"
 # fi
+
+#----------------------------------------------------------------------
+# exit if not bash/zsh, or not in an interactive shell
+#----------------------------------------------------------------------
+[ -z "$BASH_VERSION" ] && [ -z "$ZSH_VERSION" ] && return
+[[ $- != *i* ]] && return
+
+[[ -t 0 && $(tty) == /dev/tty1 && ! $DISPLAY ]] && exec startx
+
+# skip if in non-interactive mode
+# case "$-" in
+#     *i*) ;;
+#     *) return
+# esac

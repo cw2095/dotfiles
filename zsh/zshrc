@@ -56,30 +56,12 @@
 #
 # `.zlogout' is sourced when login shells exit.
 
-# set in /etc/zshenv
-# if [[ -z "$ZDOTDIR" ]]; then
-#     export ZDOTDIR="$HOME/.local/zsh"
-# fi
-
 # prevent loading twice
 if [ -z "$_INIT_SH_LOADED" ]; then
     _INIT_SH_LOADED=1
 else
     return
 fi
-
-#----------------------------------------------------------------------
-# exit if not bash/zsh, or not in an interactive shell
-#----------------------------------------------------------------------
-[ -z "$BASH_VERSION" ] && [ -z "$ZSH_VERSION" ] && return
-[[ $- != *i* ]] && return
-
-# skip if in non-interactive mode
-# case "$-" in
-#     *i*) ;;
-#     *) return
-# esac
-
 
 # Start configuration added by Zim install {{{
 #
@@ -232,3 +214,14 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 # }}} End configuration added by Zim install
+
+# Apply sensisble zsh settings
+[[ -f ~/dotfiles/zsh/zshopt ]] && source ~/dotfiles/zsh/zshopt
+# Load aliases
+[[ -f ~/dotfiles/zsh/alias.sh ]] && source ~/dotfiles/zsh/alias.sh
+# Load function
+[[ -f ~/dotfiles/zsh/function.sh ]] && source ~/dotfiles/zsh/function.sh
+[[ -f ~/dotfiles/zsh/function.zsh ]] && source ~/dotfiles/zsh/function.zsh
+[[ -f ~/dotfiles/zsh/keymap.zsh ]] && source ~/dotfiles/zsh/keymap.zsh
+[[ -f ~/dotfiles/zsh/prompt.zsh ]] && source ~/dotfiles/zsh/prompt.zsh
+[[ -f ~/dotfiles/zsh/fzf.zsh ]] && source ~/dotfiles/zsh/fzf.zsh
