@@ -1,0 +1,99 @@
+[[ -z "$ZSH_VERSION" ]] && return
+
+#----------------------------------------------------------------------
+# detect nvim folder
+#----------------------------------------------------------------------
+if [ -n "$NVIM_CONFIG" ]; then
+    [ ! -d "$NVIM_CONFIG/config" ] && VIM_CONFIG=""
+fi
+
+[ -z "$NVIM_CONFIG" ] && NVIM_CONFIG="$HOME/.config/nvim"
+
+export NVIM_CONFIG
+
+# Golang
+# setup for go if it exists
+if [ -d "$HOME/.local/go" ]; then
+    export GOPATH="$HOME/.local/go"
+    if [ -d "$HOME/.local/go/bin" ]; then
+        export PATH="$HOME/.local/go/bin:$PATH"
+    fi
+fi
+
+# setup for alternative go path
+if [ -d "$HOME/go" ]; then
+    export GOPATH="$HOME/go"
+    if [ -d "$HOME/go/bin" ]; then
+        export PATH="$HOME/go/bin:$PATH"
+    fi
+fi
+
+# setup for /usr/local/app/bin if it exists
+if [ -d /usr/local/app/bin ]; then
+    export PATH="/usr/local/app/bin:$PATH"
+fi
+
+# setup for go if it exists
+if [ -d /usr/local/app/go ]; then
+    export GOROOT="/usr/local/app/go"
+    export PATH="/usr/local/app/go/bin:$PATH"
+fi
+
+if [[ -d /usr/local/go/bin ]]; then
+    export PATH="${PATH}:/usr/local/go/bin"
+fi
+
+
+# Node Version Manager
+export NVM_DIR="${HOME}/.nvm"
+
+# setup for nodejs
+if [ -d /usr/local/app/node ]; then
+    export PATH="/usr/local/app/node/bin:$PATH"
+fi
+
+# Ruby Version Manager
+export RVM_DIR="${HOME}/.rvm"
+test -f "${RVM_DIR}/scripts/rvm" && source "${RVM_DIR}/scripts/rvm"
+
+# setup for local rust
+if [ -d "$HOME/.cargo/bin" ]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# pip3
+# export PATH=$PATH:$HOME/.local/lib/python3.9/site-packages
+# export PATH=$PATH:$HOME/.local/bin
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# setup for own dotfiles
+if [ -d "$HOME/dotfiles/bin" ]; then
+    export PATH="$HOME/dotfiles/bin:$PATH"
+fi
+
+# setup for ~/bin
+if [ -d "$HOME/bin" ]; then
+    export PATH="$HOME/bin:$PATH"
+fi
+
+# remove duplicate path
+if [ -n "$PATH" ]; then
+    old_PATH=$PATH:; PATH=
+    while [ -n "$old_PATH" ]; do
+        x=${old_PATH%%:*}        # the first remaining entry
+        case $PATH: in
+            *:"$x":*) ;;         # already there
+            *) PATH=$PATH:$x;;   # not there yet
+        esac
+        old_PATH=${old_PATH#*:}
+    done
+    PATH=${PATH#:}
+    unset old_PATH x
+fi
+
+export PATH
+
