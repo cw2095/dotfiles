@@ -40,4 +40,5 @@ alias please='sudo $(fc -ln -1)'
 alias wl='wc -l'
 alias tree='tree -C'
 
-alias fe='vi (du -a ~/ | awk "{print $2}" | fzf --preview "bat --style=numbers --color=always --line-range :500 {}")'
+# zfm
+alias of='vim $(zfm select --files --multi)'
