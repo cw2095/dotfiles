@@ -53,10 +53,21 @@ vim_fzf() {
     echo $fzf_result
     if [ -z "$fzf_result" ]
     then
-        echo "No file specific, Interupt tne vim command"
+        echo "No file specific, Interupt the vim command"
     else
         nvim  $fzf_result
     fi
 }
-
 bindkey -s '^e' 'vim_fzf\n'
+
+cd_fzf() {
+    local fzf_result=$(fd --exclude={.wine,.git,.idea,.vscode,.sass-cache,node_modules,build,.local,.steam,.m2,.rangerdir,.ssh,.ghidra,.mozilla} --type d --hidden --follow . /etc /home | fzf)
+    echo $fzf_result
+    if [ -z "$fzf_result" ]
+    then
+        echo "No directory specific, Interupt the cd command"
+    else
+        cd  $fzf_result
+    fi
+}
+bindkey -s '^a' 'cd_fzf\n'
