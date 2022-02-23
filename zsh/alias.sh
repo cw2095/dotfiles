@@ -43,3 +43,6 @@ alias tree='tree -C'
 # zfm
 alias of='vi $(zfm select --files --multi)'
 alias od='cd $(zfm select --dirs --multi)'
+
+# nnn
+alias N='sudo -E nnn -dH'

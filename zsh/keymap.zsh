@@ -8,3 +8,4 @@ bindkey ',' autosuggest-accept
 bindkey -r '^P'
 bindkey -r '^O'
 
+bindkey -s '^\' 'n\n'

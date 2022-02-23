@@ -70,4 +70,4 @@ cd_fzf() {
         cd  $fzf_result
     fi
 }
-bindkey -s '^a' 'cd_fzf\n'
+bindkey -s '^]' 'cd_fzf\n'

@@ -36,15 +36,16 @@
     ~/.xprofile: xprofile
     ~/.xinitrc: xinitrc
     ~/.jwmrc: jwmrc
+    ~/.gitignore_global: gitignore_global
+    ~/.gitconfig: gitconfig
+    ~/GitHub/slstatus/config.h: slstatus-config.h
     ~/.config/alacritty/alacritty.yml: alacritty.yml
     ~/.config/picom/picom.conf: picom.conf
     ~/.config/rofi/config.rasi: rofi_config.rasi
     ~/.config/qalculate/qalc.cfg: qalc.cfg
     ~/.config/greenclip.toml: greenclip.toml
     ~/.config/bat/config: bat_config
-    ~/GitHub/slstatus/config.h: slstatus-config.h
-    ~/.gitignore_global: gitignore_global
-    ~/.gitconfig: gitconfig
+    ~/.config/nvim: ~/GitHub/vime
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

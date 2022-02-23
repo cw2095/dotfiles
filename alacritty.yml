@@ -972,7 +972,7 @@ schemes:
 # *SolarizedDark
 # *TomorrowNight
 
-colors: *MonokaiPro
+colors: *GruvboxDark
 #######################################
 ##       END OF COLOR SCHEMES        ##
 #######################################
