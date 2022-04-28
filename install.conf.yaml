@@ -45,6 +45,7 @@
     ~/.config/qalculate/qalc.cfg: qalc.cfg
     ~/.config/greenclip.toml: greenclip.toml
     ~/.config/bat/config: bat_config
+    ~/.config/pip/pip.conf: pip.conf
     ~/.config/nvim: ~/GitHub/vime
 
 - shell:
